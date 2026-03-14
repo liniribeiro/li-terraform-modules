@@ -1,4 +1,4 @@
-\name: Release Terraform Modules
+name: Release Terraform Modules
 
 on:
   push:
