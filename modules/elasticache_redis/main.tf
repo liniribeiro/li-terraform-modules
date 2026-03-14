@@ -1,4 +1,5 @@
 resource "aws_security_group" "redis" {
+  count = var.create ? 1 : 0
   name        = "${var.name}-redis"
   description = "Redis access"
   vpc_id      = var.vpc_id
@@ -22,6 +23,7 @@ resource "aws_security_group" "redis" {
 }
 
 resource "aws_elasticache_subnet_group" "redis" {
+  count = var.create ? 1 : 0
   name       = "${var.name}-subnets"
   subnet_ids = var.subnet_ids
 
@@ -29,6 +31,7 @@ resource "aws_elasticache_subnet_group" "redis" {
 }
 
 resource "aws_elasticache_parameter_group" "redis" {
+  count = var.create ? 1 : 0
   name   = "${var.name}-params"
   family = "redis7"
 
@@ -41,6 +44,7 @@ resource "aws_elasticache_parameter_group" "redis" {
 }
 
 resource "aws_elasticache_replication_group" "redis" {
+  count = var.create ? 1 : 0
   replication_group_id = var.name
   description          = "Redis cluster for ${var.name}"
 
@@ -53,10 +57,10 @@ resource "aws_elasticache_replication_group" "redis" {
   automatic_failover_enabled = true
   multi_az_enabled           = true
 
-  subnet_group_name  = aws_elasticache_subnet_group.redis.name
-  security_group_ids = [aws_security_group.redis.id]
+  subnet_group_name  = aws_elasticache_subnet_group.redis[0].name
+  security_group_ids = [aws_security_group.redis[0].id]
 
-  parameter_group_name = aws_elasticache_parameter_group.redis.name
+  parameter_group_name = aws_elasticache_parameter_group.redis[0].name
 
   at_rest_encryption_enabled = true
   transit_encryption_enabled = true
