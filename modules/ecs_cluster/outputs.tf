@@ -18,25 +18,6 @@ output "cluster_name" {
 }
 
 ################################################################################
-# Cluster Capacity Providers
-################################################################################
-
-output "cluster_capacity_providers" {
-  description = "Map of cluster capacity providers attributes"
-  value       = module.ecs.cluster_capacity_providers
-}
-
-################################################################################
-# Capacity Provider
-################################################################################
-
-output "autoscaling_capacity_providers" {
-  description = "Map of capacity providers created and their attributes"
-  value       = module.ecs.autoscaling_capacity_providers
-}
-
-
-################################################################################
 # CloudWatch Log Group
 ################################################################################
 
