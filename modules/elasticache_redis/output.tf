@@ -1,11 +1,19 @@
-output "primary_endpoint" {
-  value = aws_elasticache_replication_group.redis.primary_endpoint_address
+output "arn" {
+  value = try(aws_elasticache_cluster.this[0].arn, null)
 }
 
-output "reader_endpoint" {
-  value = aws_elasticache_replication_group.redis.reader_endpoint_address
+output "engine_version_actual" {
+  value = try(aws_elasticache_cluster.this[0].engine_version_actual, null)
 }
 
-output "security_group_id" {
-  value = aws_security_group.redis.id
+output "cluster_address" {
+  value = try(aws_elasticache_cluster.this[0].cluster_address, null)
+}
+
+output "configuration_endpoint" {
+  value = try(aws_elasticache_cluster.this[0].configuration_endpoint, null)
+}
+
+output "cache_nodes" {
+  value = try(aws_elasticache_cluster.this[0].cache_nodes, null)
 }
