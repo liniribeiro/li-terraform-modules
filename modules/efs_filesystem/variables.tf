@@ -1,3 +1,9 @@
+variable "create" {
+  description = "Conditional create all the resources in this module"
+  type        = bool
+  default     = true
+}
+
 variable "region" {
   default     = "us-east-2"
   description = "AWS region"

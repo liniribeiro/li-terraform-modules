@@ -39,6 +39,7 @@ data "aws_subnet" "private" {
 # EFS
 ################################################################################
 resource "aws_efs_file_system" "this" {
+  count = var.create ? 1 : 0
   creation_token   = var.name
   performance_mode = var.performance_mode
   throughput_mode  = var.throughput_mode
@@ -48,9 +49,9 @@ resource "aws_efs_file_system" "this" {
 
 
 resource "aws_efs_mount_target" "this" {
-  for_each = toset(local.subnet_ids)
+  for_each = var.create ? toset(local.subnet_ids) : []
 
-  file_system_id  = aws_efs_file_system.this.id
+  file_system_id  = aws_efs_file_system.this[0].id
   subnet_id       = each.value
   security_groups = [var.default_vpc_sg]
 }

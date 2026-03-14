@@ -3,8 +3,6 @@ provider "aws" {
   region = var.region
 }
 
-
-
 locals {
   engine_version = coalesce(var.engine_version, "7.0")
   port           = coalesce(var.port, 6379)
