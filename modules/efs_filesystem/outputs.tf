@@ -32,5 +32,5 @@ output "file_system_arn" {
 }
 
 output "id" {
-  value = try(aws_efs_file_system.this.id, null)
+  value = try(aws_efs_file_system.this[0].id, null)
 }
